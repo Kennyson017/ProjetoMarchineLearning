@@ -1,15 +1,11 @@
 import modulos.functions as mf
-from sklearn import tree 
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from modulos.algoritmos import DecisionTree, RamdomForest
+
 
 df = mf.treat_csv()
 
-# train = df[(df['Date'].dt.year >= 2023) & (df['Date'].dt.year <= 2024)]
-train = df[(df['Date'].dt.year <= 2024)]
+train = df[(df['Date'].dt.year >= 2023) & (df['Date'].dt.year <= 2024)]
 test = df[(df['Date'].dt.year == 2025)]
-
-# print("Período de treino:", train['Date'].min(), "->", train['Date'].max())
-# print("Período de teste:", test['Date'].min(), "->", test['Date'].max())
 
 # TREINAMENTO
 
@@ -18,22 +14,51 @@ features = ['Open', 'High', 'Low', 'Close', 'Volume']
 target = 'Target'
 
 # Treino
-X_train = train[features] # features
+x_train = train[features] # features
 y_train = train[target] # target
 
-# Teste 
+# TESTES
 x_test = test[features]
-y_teste = test[target]
+y_test = test[target]
 
-def DesionTree():
-    clf = tree.DecisionTreeClassifier()
-    clf = clf.fit(X_train, y_train)
+# Sem Feature Engineering
 
-    y_pred = clf.predict(x_test)
+DecisionTree(x_train, y_train, y_test, x_test)
 
-    print("Acurácia:", accuracy_score(y_teste, y_pred))
-    print("\nRelatório de Classificação:\n", classification_report(y_teste, y_pred))
-    print("\nMatriz de Confusão:\n", confusion_matrix(y_teste, y_pred))
+RamdomForest(x_train, y_train, y_test, x_test)
+
+# Com Feature Engineering
+
+df_FE = df
+
+train_FE = df_FE[(df_FE['Date'].dt.year >= 2023) & (df_FE['Date'].dt.year <= 2024)]
+test_FE = df_FE[(df_FE['Date'].dt.year == 2025)]
+
+train_FE = mf.features_dataframe(train_FE)
+test_FE = mf.features_dataframe(test_FE)
+
+# features_FE = [
+#     'Open', 'High', 'Low', 'Close', 'Volume',
+#     'retorno_dia', 'amplitude', 'sma_3', 'sma_7',
+#     'retorno_3dias', 'volatilidade_5d', 'volume_relativo'
+# ]
+
+features_FE = [
+    'Open', 'High', 'Low', 'Close', 'Volume',
+    'retorno_dia', 'amplitude'
+]
+
+
+x_train_FE = train_FE[features_FE] # features
+y_train_FE = train_FE[target] # target
+
+# Teste 
+x_test_FE = test_FE[features_FE]
+y_test_FE = test_FE[target]
+
+DecisionTree(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
+
+RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
 
 
@@ -49,10 +74,8 @@ def DesionTree():
 
 
 
-
-
-
-
+# print("Período de treino:", train['Date'].min(), "->", train['Date'].max())
+# print("Período de teste:", test['Date'].min(), "->", test['Date'].max())
 
 
 # 👍1) Escolher um código de ativo da B3 e Baixar 3 anos (2023, 2024 e 2025) de
