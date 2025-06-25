@@ -3,9 +3,9 @@ from modulos.algoritmos import DecisionTree, RamdomForest
 
 import modulos.config as mc
 
-mc.ticker = "ITUB4.SA"
+# mc.ticker = "ITUB4.SA"
 
-mf.create_csv()
+# mf.create_csv()
 
 df = mf.treat_csv()
 
@@ -107,14 +107,14 @@ y_test_FE = test_FE[target]
 # 7) Gerar um relatório em formato (.PDF) contendo no mínimo:
     # o Resumo e imagem do fluxo de todas as etapas realizadas
     # o explicação das etapas realizadas (O que foi feito? Como foi feito?)
-    # o gráfico de linha da série temporal total avaliada
-    # o gráfico de barras contendo a percentual das classes calculadas
-    # o quantitativo em percentual das classes calculadas
-    # o quantidade de acertos e erros de previsão
-    # o medidas de avaliação (acurácia, precisao, f1-score e especificidade)
-    # o retorno financeiro das perdas em percentual
-    # o retorno financeiro dos ganhos em percentual
-    # o retorno financeiro geral (ganhos menos as perdas) em percentual
+    # ⏲️ o gráfico de linha da série temporal total avaliada
+    # ⏲️ o gráfico de barras contendo a percentual das classes calculadas
+    # ⏲️ o quantitativo em percentual das classes calculadas
+    # ⏲️ o quantidade de acertos e erros de previsão
+    # ⏲️ o medidas de avaliação (acurácia, precisao, f1-score e especificidade)
+    # ⏲️ o retorno financeiro das perdas em percentual
+    # ⏲️ o retorno financeiro dos ganhos em percentual
+    # ⏲️ o retorno financeiro geral (ganhos menos as perdas) em percentual
     # o conclusão sobre os resultados apresentados e o comportamento apresentado pelo seu algoritmo de aprendizado de máquina escolhido.
 
 # 8) Criar um Dashboard para iniciar a aplicação e apresentação dos resultados
