@@ -1,6 +1,11 @@
 import modulos.functions as mf
 from modulos.algoritmos import DecisionTree, RamdomForest
 
+import modulos.config as mc
+
+mc.ticker = "ITUB4.SA"
+
+mf.create_csv()
 
 df = mf.treat_csv()
 
@@ -23,8 +28,10 @@ y_test = test[target]
 
 # Sem Feature Engineering
 
+print("\nDECISION TREE ----------------\n")
 DecisionTree(x_train, y_train, y_test, x_test)
 
+print("\nRamdom Forest ----------------\n")
 RamdomForest(x_train, y_train, y_test, x_test)
 
 # Com Feature Engineering
@@ -56,8 +63,10 @@ y_train_FE = train_FE[target] # target
 x_test_FE = test_FE[features_FE]
 y_test_FE = test_FE[target]
 
+print("\nDECISION TREE com Feature Engineering ----------------\n")
 DecisionTree(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
+print("\nRamdom Forest com Feature Engineering----------------\n")
 RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
 
@@ -86,9 +95,9 @@ RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
 # 👍3) Separar os dados em Treinamento (2023 e 2024) e Teste (2025)
 
-# 4) Escolher na biblioteca sci-kit learn e implementar um algoritmo de aprendizado de máquina categoria supervisionado (classificador) (KNN, DT, NB, SVM e outro).
+# ⏲️ 4) Escolher na biblioteca sci-kit learn e implementar um algoritmo de aprendizado de máquina categoria supervisionado (classificador) (KNN, DT, NB, SVM e outro).
 
-# 5) Realizar as simulações e ajustar os parâmetros do algoritmo escolhido aos
+# ⏲️ 5) Realizar as simulações e ajustar os parâmetros do algoritmo escolhido aos
 # dados avaliados.
 
 # 6) Revisar os dados coletados com o objetivo de retirar ruídos e ou atributos

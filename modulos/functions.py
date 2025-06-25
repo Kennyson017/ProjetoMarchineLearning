@@ -54,7 +54,7 @@ def features_dataframe(df):
 
     df = df.dropna() # Remove as primeiras linhas que ficaram com NaN por causa dos cálculos de rolling e shift
 
-    print(df.head()) # Verificar se está tudo certo
+    # print(df.head()) # Verificar se está tudo certo
 
     return df
 
