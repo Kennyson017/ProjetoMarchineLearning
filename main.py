@@ -26,22 +26,22 @@ y_train = train[target] # target
 x_test = test[features]
 y_test = test[target]
 
-# Sem Feature Engineering
+# # Sem Feature Engineering
 
-print("\nDECISION TREE ----------------\n")
-DecisionTree(x_train, y_train, y_test, x_test)
+# print("\nDECISION TREE ----------------\n")
+# DecisionTree(x_train, y_train, y_test, x_test)
 
-print("\nRamdom Forest ----------------\n")
-RamdomForest(x_train, y_train, y_test, x_test)
+# print("\nRamdom Forest ----------------\n")
+# RamdomForest(x_train, y_train, y_test, x_test)
 
 # Com Feature Engineering
 
 df_FE = df
 
-train_FE = df_FE[(df_FE['Date'].dt.year >= 2023) & (df_FE['Date'].dt.year <= 2024)]
+df_train_FE = df_FE[(df_FE['Date'].dt.year >= 2023) & (df_FE['Date'].dt.year <= 2024)]
 test_FE = df_FE[(df_FE['Date'].dt.year == 2025)]
 
-train_FE = mf.features_dataframe(train_FE)
+df_train_FE = mf.features_dataframe(df_train_FE)
 test_FE = mf.features_dataframe(test_FE)
 
 # features_FE = [
@@ -56,18 +56,18 @@ features_FE = [
 ]
 
 
-x_train_FE = train_FE[features_FE] # features
-y_train_FE = train_FE[target] # target
+x_train_FE = df_train_FE[features_FE] # features
+y_train_FE = df_train_FE[target] # target
 
 # Teste 
 x_test_FE = test_FE[features_FE]
 y_test_FE = test_FE[target]
 
-print("\nDECISION TREE com Feature Engineering ----------------\n")
-DecisionTree(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
+# print("\nDECISION TREE com Feature Engineering ----------------\n")
+# DecisionTree(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
-print("\nRamdom Forest com Feature Engineering----------------\n")
-RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
+# print("\nRamdom Forest com Feature Engineering----------------\n")
+# RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
 
 
