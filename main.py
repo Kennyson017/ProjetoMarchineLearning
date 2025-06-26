@@ -3,7 +3,7 @@ from modulos.algoritmos import DecisionTree, RamdomForest
 
 import modulos.config as mc
 
-mc.ticker = "ITUB4.SA"
+mc.ticker = "MGLU3.SA"
 
 mf.create_csv()
 
@@ -44,17 +44,12 @@ test_FE = df_FE[(df_FE['Date'].dt.year == 2025)]
 train_FE = mf.features_dataframe(train_FE)
 test_FE = mf.features_dataframe(test_FE)
 
-# features_FE = [
-#     'Open', 'High', 'Low', 'Close', 'Volume',
-#     'retorno_dia', 'amplitude', 'sma_3', 'sma_7',
-#     'retorno_3dias', 'volatilidade_5d', 'volume_relativo'
-# ]
-
 features_FE = [
-    'Open', 'High', 'Low', 'Close', 'Volume',
-    'retorno_dia', 'amplitude'
-]
-
+'Open', 'High', 'Low', 'Volume',
+    'retorno_d1', 'retorno_3d_antes', 'sma_3_past', 'sma_7_past',
+    'volatilidade_5d_past', 'volume_relativo_past',
+    'gap_abertura', 'alta_dia_anterior', 'amplitude_anterior'
+ ]
 
 x_train_FE = train_FE[features_FE] # features
 y_train_FE = train_FE[target] # target
@@ -68,6 +63,10 @@ DecisionTree(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
 
 print("\nRamdom Forest com Feature Engineering----------------\n")
 RamdomForest(x_train_FE, y_train_FE, y_test_FE, x_test_FE)
+
+
+
+
 
 
 
