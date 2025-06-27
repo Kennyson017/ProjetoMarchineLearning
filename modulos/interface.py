@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import datetime
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 def render_sidebar():
     st.sidebar.title('💲Monitor de Ações')
@@ -33,12 +34,12 @@ def render_sidebar():
         )
         st.stop()
 
-    st.sidebar.button("Aplicar Filtros")
+    show_train = st.sidebar.toggle("Mostrar período de treinamento no gráfico", value=True)
 
-    return train_selected_years
+    return selected_ticker, train_selected_years, test_selected_year, show_train
 
 def render_metrics_dashboard(
-    class_percent, hits, misses,
+    recall, hits, misses,
     accuracy, precision, f1_score, specificity,
     loss_return, gain_return, net_return
 ):
@@ -46,7 +47,7 @@ def render_metrics_dashboard(
 
     # Primeira linha: distribuição e desempenho do modelo
     col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("🎯 Classes (%)", f"{class_percent:.1f}%")
+    col1.metric("🎯 Recall", f"{recall:.2f}")
     col2.metric("✅ Acertos", f"{hits}")
     col3.metric("❌ Erros", f"{misses}")
     col4.metric("📈 Acurácia", f"{accuracy:.2%}")
@@ -56,7 +57,7 @@ def render_metrics_dashboard(
     col6, col7, col8, col9, col10 = st.columns(5)
     col6.metric("📊 F1-score", f"{f1_score:.2%}")
     col7.metric("🧪 Especificidade", f"{specificity:.2%}")
-    col8.metric("📉 Perdas (%)", f"{loss_return:.2f}%", delta=-loss_return)
+    col8.metric("📉 Perdas (%)", f"{loss_return:.2f}%", delta=loss_return)
     col9.metric("📈 Ganhos (%)", f"{gain_return:.2f}%", delta=gain_return)
     col10.metric("💰 Retorno Líquido", f"{net_return:.2f}%", delta=net_return)
 
@@ -71,11 +72,33 @@ def plot_time_series(data: pd.DataFrame, date_col: str, value_col: str, title: s
     )
     st.plotly_chart(fig, use_container_width=True)
 
+def plot_time_series_multiple(data: pd.DataFrame, date_col: str, value_cols: list, title: str = "📈 Série Temporal"):
+    df_melt = data.melt(id_vars=[date_col], value_vars=value_cols,
+                        var_name="Série", value_name="Valor")
+
+    fig = px.line(
+        df_melt,
+        x=date_col,
+        y="Valor",
+        color="Série",
+        title=title,
+        markers=True,
+        template="plotly_white"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
 def plot_class_distribution(class_counts: dict, title: str = "📊 Distribuição das Classes"):
     df_classes = pd.DataFrame({
         "Classe": list(class_counts.keys()),
         "Percentual": [v for v in class_counts.values()]
     })
+
+    color_map = {
+        "Alta": "green",
+        "Baixa": "red",
+        "Estável": "gray"  # opcional
+    }
 
     fig = px.bar(
         df_classes,
@@ -83,8 +106,67 @@ def plot_class_distribution(class_counts: dict, title: str = "📊 Distribuiçã
         y="Percentual",
         text="Percentual",
         title=title,
-        template="plotly_white"
+        template="plotly_white",
+        color="Classe",
+        color_discrete_map=color_map
     )
+
     fig.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
     fig.update_layout(yaxis_ticksuffix="%", yaxis_range=[0, 100])
+    st.plotly_chart(fig, use_container_width=True)
+
+# def plot_scatter(test):
+
+#     fig = px.scatter(
+#     test,
+#     x='Date',
+#     y='Close',
+#     color='Cor',
+#     color_discrete_map={'green': 'green', 'red': 'red'},
+#     title='📈 Preço Real com Marcação dos Acertos e Erros',
+#     labels={'Close': 'Preço de Fechamento'},
+#     opacity=0.8
+# )
+
+#     # Adiciona linha do preço real
+#     fig.add_trace(
+#         go.Scatter(
+#             x=test['Date'],
+#             y=test['Close'],
+#             mode='lines',
+#             name='Preço Real',
+#             line=dict(color='gray')
+#         )
+#     )
+
+#     st.plotly_chart(fig, use_container_width=True)
+
+def plot_scatter(test_df, train_df=None ):
+
+    if train_df is not None:
+        df = pd.concat([train_df, test_df])
+    else:
+        df = test_df.copy()
+
+    fig = px.scatter(
+        test_df if test_df is not None else pd.DataFrame(columns=["Date", "Close", "Cor"]),
+        x='Date',
+        y='Close',
+        color='Cor',
+        color_discrete_map={'green': 'green', 'red': 'red'},
+        title='📈 Preço com Marcação de Acertos e Erros (Período de Teste)',
+        labels={'Close': 'Preço de Fechamento'},
+        opacity=0.8
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=df['Date'],
+            y=df['Close'],
+            mode='lines',
+            name='Preço Real',
+            line=dict(color='gray', width=2)
+        )
+    )
+
     st.plotly_chart(fig, use_container_width=True)

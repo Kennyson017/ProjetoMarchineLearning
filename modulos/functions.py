@@ -25,6 +25,7 @@ def treat_csv():
     df['Ticker'] = config.ticker # Cria coluna de nome do ativo
     df['Date'] = pd.to_datetime(df['Date']) # Converte pro formate data
     df['Target'] = (df['Close'] > df['Open']).astype(int) # Cria coluna do atributo alvo
+    df['Retorno_real'] = (df['Close'] - df['Open']) / df['Open'] * 100
 
     # print(df.head())
 
@@ -38,9 +39,11 @@ def features_dataframe(df):
 
     df = df.sort_values('Date') # Garante que os dados estão na ordem correta
     
-    df['retorno_dia'] = (df['Close'] - df['Open']) / df['Open'] * 100 # Retorno diário (%)
+    # df['retorno_dia'] = (df['Close'] - df['Open']) / df['Open'] * 100 # Retorno diário (%)
 
     df['amplitude'] = (df['High'] - df['Low']) / df['Open'] * 100 # Amplitude do dia (%)
+
+
 
     # Médias móveis
     # df['sma_3'] = df['Close'].rolling(window=3).mean()
