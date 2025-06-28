@@ -61,33 +61,6 @@ def render_metrics_dashboard(
     col9.metric("📈 Ganhos (%)", f"{gain_return:.2f}%", delta=gain_return)
     col10.metric("💰 Retorno Líquido", f"{net_return:.2f}%", delta=net_return)
 
-def plot_time_series(data: pd.DataFrame, date_col: str, value_col: str, title: str = "📈 Série Temporal"):
-    fig = px.line(
-        data,
-        x=date_col,
-        y=value_col,
-        title=title,
-        markers=True,
-        template="plotly_white"
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-def plot_time_series_multiple(data: pd.DataFrame, date_col: str, value_cols: list, title: str = "📈 Série Temporal"):
-    df_melt = data.melt(id_vars=[date_col], value_vars=value_cols,
-                        var_name="Série", value_name="Valor")
-
-    fig = px.line(
-        df_melt,
-        x=date_col,
-        y="Valor",
-        color="Série",
-        title=title,
-        markers=True,
-        template="plotly_white"
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
 def plot_class_distribution(class_counts: dict, title: str = "📊 Distribuição das Classes"):
     df_classes = pd.DataFrame({
         "Classe": list(class_counts.keys()),
@@ -114,32 +87,6 @@ def plot_class_distribution(class_counts: dict, title: str = "📊 Distribuiçã
     fig.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
     fig.update_layout(yaxis_ticksuffix="%", yaxis_range=[0, 100])
     st.plotly_chart(fig, use_container_width=True)
-
-# def plot_scatter(test):
-
-#     fig = px.scatter(
-#     test,
-#     x='Date',
-#     y='Close',
-#     color='Cor',
-#     color_discrete_map={'green': 'green', 'red': 'red'},
-#     title='📈 Preço Real com Marcação dos Acertos e Erros',
-#     labels={'Close': 'Preço de Fechamento'},
-#     opacity=0.8
-# )
-
-#     # Adiciona linha do preço real
-#     fig.add_trace(
-#         go.Scatter(
-#             x=test['Date'],
-#             y=test['Close'],
-#             mode='lines',
-#             name='Preço Real',
-#             line=dict(color='gray')
-#         )
-#     )
-
-#     st.plotly_chart(fig, use_container_width=True)
 
 def plot_scatter(test_df, train_df=None ):
 

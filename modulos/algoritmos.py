@@ -7,10 +7,6 @@ def DecisionTree(x_train, y_train, y_test, x_test, test_df):
 
     y_pred = clf.predict(x_test)
 
-    # print("Acurácia:", accuracy_score(y_test, y_pred))
-    # print("\nRelatório de Classificação:\n", classification_report(y_test, y_pred))
-    # print("\nMatriz de Confusão:\n", confusion_matrix(y_test, y_pred))
-
     acuracia = accuracy_score(y_test, y_pred)
 
     precision, recall, f1, suporte = precision_recall_fscore_support(y_test, y_pred, zero_division=0)
@@ -84,36 +80,6 @@ def RamdomForest(x_train, y_train, y_test, x_test):
     print("\nRelatório RF:\n", classification_report(y_test, y_pred_rf))
     print("\nMatriz de Confusão RF:\n", confusion_matrix(y_test, y_pred_rf))
 
-
-# def simular_retorno_financeiro(test_df, y_pred, investimento_por_trade=1000):
-#     df = test_df.copy()
-#     df['y_pred'] = y_pred
-#     df['acertou'] = df['y_pred'] == df['Target']
-
-#     # Considerar apenas onde o modelo previu alta
-#     df_entradas = df[df['y_pred'] == 1].copy()
-
-#     df_entradas['retorno_percentual'] = df_entradas['Retorno_real'] / 100
-#     df_entradas['resultado'] = df_entradas['retorno_percentual'] * investimento_por_trade
-
-#     # Capital inicial e acumulado
-#     capital_inicial = 10000
-#     capital = capital_inicial
-
-#     for lucro in df_entradas['resultado']:
-#         capital += lucro
-
-#     lucro_total = capital - capital_inicial
-#     retorno_percentual = (lucro_total / capital_inicial) * 100
-
-#     return {
-#         'capital_final': capital,
-#         'lucro_total': lucro_total,
-#         'retorno_percentual': retorno_percentual,
-#         'quantidade_operacoes': len(df_entradas),
-#         'acertos': df_entradas['acertou'].sum(),
-#         'erros': (~df_entradas['acertou']).sum()
-#     }
 
 def simular_retorno_financeiro(test_df, y_pred, investimento_por_trade=1000):
     df = test_df.copy()
