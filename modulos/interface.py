@@ -154,7 +154,7 @@ def plot_scatter(test_df, train_df=None ):
         y='Close',
         color='Cor',
         color_discrete_map={'green': 'green', 'red': 'red'},
-        title='📈 Preço com Marcação de Acertos e Erros (Período de Teste)',
+        title='📈 Linha de Serie Temporal com Marcação de Acertos e Erros',
         labels={'Close': 'Preço de Fechamento'},
         opacity=0.8
     )

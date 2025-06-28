@@ -134,27 +134,27 @@ with col2:
 # 👍5) Realizar as simulações e ajustar os parâmetros do algoritmo escolhido aos
 # dados avaliados.
 
-# 6) Revisar os dados coletados com o objetivo de retirar ruídos e ou atributos
+# 👍6) Revisar os dados coletados com o objetivo de retirar ruídos e ou atributos
 # irrelevantes e, em seguida, proponha uma nova forma de treinar os dados para
 # o algoritmo de aprendizado de máquina escolhido e, realize novas simulações.
 
 # 7) Gerar um relatório em formato (.PDF) contendo no mínimo:
     # o Resumo e imagem do fluxo de todas as etapas realizadas
-    # o explicação das etapas realizadas (O que foi feito? Como foi feito?)
-    # ⏲️ o gráfico de linha da série temporal total avaliada
+    # 👍 o explicação das etapas realizadas (O que foi feito? Como foi feito?)
+    # 👍 o gráfico de linha da série temporal total avaliada
     # 👍 o gráfico de barras contendo a percentual das classes calculadas
     # 👍 o quantitativo em percentual das classes calculadas
     # 👍 o quantidade de acertos e erros de previsão
     # 👍 o medidas de avaliação (acurácia, precisao, f1-score e especificidade)
-    # ⏲️ o retorno financeiro das perdas em percentual
-    # ⏲️ o retorno financeiro dos ganhos em percentual
-    # ⏲️ o retorno financeiro geral (ganhos menos as perdas) em percentual
+    # 👍 o retorno financeiro das perdas em percentual
+    # 👍 o retorno financeiro dos ganhos em percentual
+    # 👍 o retorno financeiro geral (ganhos menos as perdas) em percentual
     # o conclusão sobre os resultados apresentados e o comportamento apresentado pelo seu algoritmo de aprendizado de máquina escolhido.
 
-# 8) Criar um Dashboard para iniciar a aplicação e apresentação dos resultados
+# 👍8) Criar um Dashboard para iniciar a aplicação e apresentação dos resultados
 # solicitados no item 7.
 
-# 9) Criar um filtro para selecionar o período de dados de Treinamento por ano.
+# 👍9) Criar um filtro para selecionar o período de dados de Treinamento por ano.
 
 # 10) Gravar um vídeo de no máximo 10 minutos mostrando código funcionando e
 # explicando todo o trabalho realizado
